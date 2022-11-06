@@ -6,7 +6,7 @@
 /*   By: nrallo <nrallo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:21:19 by nrallo            #+#    #+#             */
-/*   Updated: 2022/10/31 14:12:49 by nrallo           ###   ########.fr       */
+/*   Updated: 2022/11/04 18:45:31 by nrallo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,38 @@
 #include <stdio.h>
 #include "./libft.h"
 
+static char *_return_empty(void)
+{
+    char    *output;
+
+    output = malloc(sizeof(char));
+    if (output == NULL)
+        return (NULL);
+    *output = '\0';
+    return (output);
+}
+
 char *ft_substr(char const *src, unsigned int start, unsigned int len)
 {
-    int i;
+    unsigned int i;
     char *dest;
-    int size;
-
+    unsigned int size;
+    unsigned int j;
+    
+    
+    if (ft_strlen(src) == 0 || start > ft_strlen(src) || len == 0)
+        return (_return_empty());
     size = ft_strlen((char *)src + start);
     if (size < len)
         len = size;
-    if ((unsigned int)ft_strlen((char *)src) < start)
-        return (ft_strdup(""));
-    dest = (char *)malloc(sizeof(char) * (len + 1));
-    if(dest == NULL)
-        return NULL;
-    i = 0;
-    if(start <= ft_strlen((char *)src))
-    {
-	    while (i != len && src[start] != '\0')
-	    {
-	    	dest[i++] = src[start];
-	    	start++;
-	    }
-    }
-    dest[len] = '\0';
+    if(!src || !(dest = (char *)malloc(sizeof(char) * (len + 1))))
+        return (NULL);
+    j = 0;
+    i = start;
+    while (i < ft_strlen(src) && j < len)
+	{
+        dest[j++] = src[i++];
+	}
+    dest[j] = '\0';
     return (dest);
 }

@@ -6,7 +6,7 @@
 /*   By: nrallo <nrallo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 00:18:28 by nrallo            #+#    #+#             */
-/*   Updated: 2022/10/31 12:41:45 by nrallo           ###   ########.fr       */
+/*   Updated: 2022/11/04 19:11:44 by nrallo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,30 @@ int ft_number_size(int n)
     return (i);
 }
 
+void *returnnull()
+{
+    char *res;
+
+    if((res = malloc(2 * sizeof(char))) == NULL)
+        return (NULL);
+    res[0] = '0';
+    res[1] = '\0';
+    return res;
+}
+
 char *ft_itoa(int n)
 {
     char *res;
     int i;
     int neg;
-    
+
+    if(n == 0)
+        return returnnull();
     neg = (n <= 0);
     i = 0;
     res = malloc((ft_number_size(n) + 1 + neg) * sizeof(char));
     if(res == NULL)
         return (NULL);
-    if(n == 0)
-        return "0";
     while (n != 0)
     {
         res[i++] = ft_abs(n % 10) + '0';
